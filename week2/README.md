@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Tesla Deliveries Forecasting
 
 ## Objective
@@ -18,4 +17,4 @@ Predict Tesla vehicle deliveries using machine learning.
 Streamlit
 =======
 # celebal
->>>>>>> 666c562e8a3cfd85f4814471ab6d661d8d7d8a40
+
