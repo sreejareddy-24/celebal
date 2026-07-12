@@ -1,0 +1,53 @@
+Retrieval-Augmented Generation (RAG) Overview
+
+Retrieval-Augmented Generation, or RAG, is a technique that combines information
+retrieval with text generation to produce answers that are grounded in a specific
+set of documents rather than relying solely on a language model's internal
+knowledge. RAG is especially useful for question answering over private or
+custom data, such as personal notes, resumes, research papers, or internal
+company documents, because it lets a general-purpose language model answer
+questions about content it was never trained on.
+
+How RAG Works
+
+A typical RAG pipeline has four stages. First, documents are split into smaller
+chunks so that each piece of text is small enough to fit into a retrieval index
+and later into a language model's context window. Second, each chunk is
+converted into a numerical representation, either through sparse methods like
+TF-IDF or dense methods like transformer-based embeddings, and stored in a
+vector index. Third, when a user asks a question, the same encoding process is
+applied to the question, and the index is searched for the chunks most similar
+to the question. Fourth, the retrieved chunks are inserted into a prompt along
+with the original question, and a language model generates an answer that is
+grounded in that retrieved context.
+
+Why RAG Matters
+
+Without retrieval, a language model can only answer based on what it learned
+during training, which means it cannot answer questions about documents that
+did not exist at training time, such as a student's resume or a company's
+internal wiki. RAG solves this by fetching the most relevant passages at
+answer time and conditioning the model's response on them. This reduces
+hallucination, because the model is encouraged to base its answer on the
+provided context rather than inventing facts, and it also makes answers more
+verifiable, since the retrieved passages can be shown to the user as sources.
+
+Common Components
+
+Document loaders read raw files such as PDFs, text files, or web pages and
+extract their text. Text splitters break long documents into overlapping
+chunks, with the overlap helping to preserve context across chunk boundaries.
+Vector stores, such as FAISS, Chroma, or a simple TF-IDF matrix, hold the
+numerical representations of chunks and support fast similarity search.
+Finally, a generator, which is usually a large language model such as GPT or
+Claude, produces the final natural-language answer using the retrieved
+context and the user's question.
+
+Evaluation Datasets
+
+Beginners building their first RAG system often start with a small, simple
+dataset such as a single PDF, a set of personal notes, a resume, or a short
+research paper, since these are easy to inspect manually and verify that the
+retrieved passages make sense. More advanced projects may use larger public
+datasets, including question-answering datasets hosted on the Hugging Face
+Hub, to benchmark retrieval and generation quality at scale.
